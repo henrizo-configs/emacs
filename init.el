@@ -15,6 +15,7 @@
 (require 'auto-highlight-symbol)
 (require 'perspective)
 (require 'ace-jump-mode)
+(require 'ess-site)
 ;; </dependencies>
 
 ;; <config>
@@ -106,7 +107,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
+    (htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -118,6 +119,9 @@
 
 ;; <Babel>
 ;; active Babel languages
+(setq-default org-startup-with-inline-images t)
+(setq-default org-redisplay-inline-images    t)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((R . t)
