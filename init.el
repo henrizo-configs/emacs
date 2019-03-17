@@ -30,11 +30,11 @@
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-omnisharp))
 
-(setq-default c-basic-offset 4)             ; set CC indent to 4 spaces
+(setq-default c-basic-offset 4) ; set CC indent to 4 spaces
 (setq-default flycheck-idle-change-delay 1)
-(setq-default cursor-type 'bar)             ; set cursor to bar
-(setq-default tab-width 2)                  ; set tab width to 2
-(setq-default indent-tabs-mode nil)         ; turn off indent-tabs-mode
+(setq-default cursor-type 'bar) ; set cursor to bar
+(setq-default tab-width 2) ;set tab width to 2
+(setq-default indent-tabs-mode nil) ; turn off indent-tabs-mode
 (setq-default fci-rule-column 100)
 (setq-default case-fold-search nil)
 (set-cursor-color "WhiteSmoke")
@@ -63,7 +63,7 @@
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
 (global-set-key (kbd "\M-]")        'scroll-down-line) ; scroll up
-(global-set-key (kbd "\M-[")        'scroll-up-line)   ; scroll down
+(global-set-key (kbd "\M-[")        'scroll-up-line) ; scroll down
 (global-set-key (kbd "M-x")         'helm-M-x)
 (global-set-key (kbd "C-x C-f")     'helm-find-files)
 (global-set-key (kbd "C-?")         'help-command)
@@ -83,7 +83,6 @@
 ;;scroll window up/down by one line
 (global-set-key (kbd "M-[") (kbd "C-u 1 C-v"))
 (global-set-key (kbd "M-]") (kbd "C-u 1 M-v"))
-
 ;; </key_config>
 
 ;; <Haskell>
@@ -100,12 +99,6 @@
 ;; <Neotree>
 (global-set-key [f8] 'neotree-toggle)
 ;; </Neotree>
-
-;; <Org Mode>
-(setq org-log-done 'time)
-(setq org-log-done 'note)
-;; </Org Mode>
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -113,10 +106,27 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (lua-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
+    (lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; <Org mode>
+
+;; <Babel>
+;; active Babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+   (haskell . t)
+   (python  . t)
+   (C       . t)
+   (sql     . t)
+   (shell   . t)
+   (emacs-lisp . nil)))
+;; </Babel>
+
+;; </Org mode>
