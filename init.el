@@ -118,10 +118,13 @@
 ;; <Org mode>
 
 ;; <Babel>
-;; active Babel languages
+;; Keys
+(define-key org-mode-map (kbd "C-c SPC") 'ace-jump-mode)
+
 (setq-default org-confirm-babel-evaluate     nil)
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 
+;; active Babel languages
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((R . t)
