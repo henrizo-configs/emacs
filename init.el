@@ -119,8 +119,8 @@
 
 ;; <Babel>
 ;; active Babel languages
-(setq-default org-startup-with-inline-images t)
-(setq-default org-redisplay-inline-images    t)
+(setq-default org-confirm-babel-evaluate     nil)
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
