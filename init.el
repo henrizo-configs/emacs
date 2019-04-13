@@ -9,6 +9,7 @@
 ;; </package_refs>
 
 ;; <dependenciess>
+(require 'org)
 (require 'package)
 (require 'neotree)
 (require 'auto-complete)
