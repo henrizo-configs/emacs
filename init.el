@@ -131,6 +131,7 @@
  '((R . t)
    (haskell . t)
    (python  . t)
+   (ipython  . t)
    (C       . t)
    (sql     . t)
    (shell   . t)
