@@ -1,6 +1,6 @@
 (package-initialize)
 
-;; <package_refs>
+;; <Package_refs>
 (add-to-list 'load-path "~/.emacs.d/elpa")
 
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -65,7 +65,7 @@
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
 (global-set-key (kbd "\M-]")        'scroll-down-line) ; scroll up
-(global-set-key (kbd "\M-[")        'scroll-up-line) ; scroll down
+(global-set-key (kbd "\M-[")        'scroll-up-line)   ; scroll down
 (global-set-key (kbd "M-x")         'helm-M-x)
 (global-set-key (kbd "C-x C-f")     'helm-find-files)
 (global-set-key (kbd "C-?")         'help-command)
@@ -76,10 +76,10 @@
 (global-set-key (kbd "C-c C-u SPC") 'ace-jump-char-mode)
 (global-set-key (kbd "C-x b")       'helm-mini)
 (global-set-key (kbd "C-x k")       'kill-this-buffer)
-(global-set-key (kbd "S-C-<left>")  'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>")  'shrink-window)
-(global-set-key (kbd "S-C-<up>")    'enlarge-window)
+(global-set-key (kbd "M-<left>")  'shrink-window-horizontally)
+(global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-<down>")  'shrink-window)
+(global-set-key (kbd "M-<up>")    'enlarge-window)
 ;;keep cursor at same position when scrolling
 (setq scroll-preserve-screen-position 1)
 ;;scroll window up/down by one line
@@ -108,7 +108,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
+    (haskell-mode w3m multiple-cursors ob-ipython htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -130,8 +130,8 @@
  'org-babel-load-languages
  '((R . t)
    (haskell . t)
-   (python  . t)
    (ipython  . t)
+   (python  . t)
    (C       . t)
    (sql     . t)
    (shell   . t)
