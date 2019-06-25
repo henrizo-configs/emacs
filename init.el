@@ -76,10 +76,10 @@
 (global-set-key (kbd "C-c C-u SPC") 'ace-jump-char-mode)
 (global-set-key (kbd "C-x b")       'helm-mini)
 (global-set-key (kbd "C-x k")       'kill-this-buffer)
-(global-set-key (kbd "M-<left>")  'shrink-window-horizontally)
-(global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "M-<down>")  'shrink-window)
-(global-set-key (kbd "M-<up>")    'enlarge-window)
+(global-set-key (kbd "<s-left>")  'shrink-window-horizontally)
+(global-set-key (kbd "<s-right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "<s-down>")  'shrink-window)
+(global-set-key (kbd "<s-up>")    'enlarge-window)
 ;;keep cursor at same position when scrolling
 (setq scroll-preserve-screen-position 1)
 ;;scroll window up/down by one line
