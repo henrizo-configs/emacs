@@ -10,6 +10,7 @@
 
 ;; <dependenciess>
 (require 'org)
+(require 'org-habit)
 (require 'package)
 (require 'neotree)
 (require 'auto-complete)
@@ -17,6 +18,7 @@
 (require 'perspective)
 (require 'ace-jump-mode)
 (require 'ess-site)
+(require 'multiple-cursors)
 ;; </dependencies>
 
 ;; <config>
@@ -80,6 +82,7 @@
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>")  'shrink-window)
 (global-set-key (kbd "S-C-<up>")    'enlarge-window)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 ;;keep cursor at same position when scrolling
 (setq scroll-preserve-screen-position 1)
 ;;scroll window up/down by one line
@@ -108,7 +111,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
+    (ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -117,9 +120,16 @@
  )
 
 ;; <Org mode>
+;; org-modules
+(add-to-list 'org-modules
+             'org-habit t)
 ;; agenda
-(setq org-agenda-files '("~/Dropbox/my_org/todo/"))
+(setq org-agenda-files '("~/Dropbox/my_org/todo/"
+                         "~/Dropbox/my_org/habit/"))
 
+;; habits
+(setq org-habit-preceding-days 30)
+(setq org-habit-following-days 10)
 
 ;; <Babel>
 ;; Keys
