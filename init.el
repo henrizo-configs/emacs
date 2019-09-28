@@ -111,7 +111,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
+    (ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -125,7 +125,8 @@
              'org-habit t)
 ;; agenda
 (setq org-agenda-files '("~/Dropbox/my_org/todo/"
-                         "~/Dropbox/my_org/habit/"))
+                         "~/Dropbox/my_org/habit/"
+                         "~/Dropbox/my_org/agenda/"))
 
 ;; habits
 (setq org-habit-preceding-days 30)
