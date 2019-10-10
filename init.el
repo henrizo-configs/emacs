@@ -17,7 +17,6 @@
 (require 'auto-highlight-symbol)
 (require 'perspective)
 (require 'ace-jump-mode)
-(require 'ess-site)
 (require 'multiple-cursors)
 ;; </dependencies>
 
@@ -40,7 +39,6 @@
 (setq-default tab-width 2) ;set tab width to 2
 (setq-default indent-tabs-mode nil) ; turn off indent-tabs-mode
 (setq-default fci-rule-column 100)
-(setq-default case-fold-search nil)
 (set-cursor-color "WhiteSmoke")
 
 (put 'upcase-region 'disabled nil)
