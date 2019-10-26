@@ -95,8 +95,10 @@
 ;; </Haskell>
 
 ;; <OmniSharp>
-(add-hook 'csharp-mode-hook 'omnisharp-mode)
-(setq omnisharp-server-executable-path "/opt/omnisharp-server/OmniSharp/bin/Release/OmniSharp.exe" )
+;; I'm not using it because I am currently not programming in C#, but I'll leave it
+;; here as a reminder of this package
+;; (add-hook 'csharp-mode-hook 'omnisharp-mode)
+;; (setq omnisharp-server-executable-path "/opt/omnisharp-server/OmniSharp/bin/Release/OmniSharp.exe" )
 ;; </OmniSharp>
 
 ;; <Neotree>
@@ -122,13 +124,17 @@
 (add-to-list 'org-modules
              'org-habit t)
 ;; agenda
-(setq org-agenda-files '("~/Dropbox/my_org/todo/"
-                         "~/Dropbox/my_org/habit/"
+(setq org-agenda-files '("~/Dropbox/my_org/todos/"
+                         "~/Dropbox/my_org/habits/"
                          "~/Dropbox/my_org/agenda/"))
 
 ;; habits
 (setq org-habit-preceding-days 30)
 (setq org-habit-following-days 10)
+
+;; save the clock history across Emacs session
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
 
 ;; <Babel>
 ;; Keys
@@ -141,12 +147,12 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((R . t)
-   (haskell . t)
-   (python  . t)
-   (ipython . t)
-   (C       . t)
-   (sql     . t)
-   (shell   . t)
+   (haskell    . t)
+   (python     . t)
+   (ipython    . t)
+   (C          . t)
+   (sql        . t)
+   (shell      . t)
    (emacs-lisp . nil)))
 ;; </Babel>
 
