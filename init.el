@@ -26,18 +26,13 @@
 (menu-bar-mode -1)
 (set-frame-font "Inconsolata-12")
 
-(define-globalized-minor-mode global-fci-mode fci-mode turn-on-fci-mode)
+(fset 'yes-or-no-p 'y-or-n-p) ; allows answering y,n instead of yes,no
 
-(fset 'yes-or-no-p 'y-or-n-p) ; allow answering y,n instead of yes,no
-
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-omnisharp))
-
-(setq-default c-basic-offset 4) ; set CC indent to 4 spaces
+(setq-default c-basic-offset 4)     ; sets CC indent to 4 spaces
 (setq-default flycheck-idle-change-delay 1)
-(setq-default cursor-type 'bar) ; set cursor to bar
-(setq-default tab-width 2) ;set tab width to 2
-(setq-default indent-tabs-mode nil) ; turn off indent-tabs-mode
+(setq-default cursor-type 'bar)     ; sets cursor to bar
+(setq-default tab-width 2)          ; sets tab width to 2
+(setq-default indent-tabs-mode nil) ; turns off indent-tabs-mode
 (setq-default fci-rule-column 100)
 (set-cursor-color "WhiteSmoke")
 
@@ -54,8 +49,8 @@
 (global-flycheck-mode)
 
 (helm-mode)
-(column-number-mode) 
-(delete-selection-mode) 
+(column-number-mode)
+(delete-selection-mode)
 (persp-mode)
 ;; </modes_config>
 
@@ -65,7 +60,7 @@
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
 (global-set-key (kbd "\M-]")        'scroll-down-line) ; scroll up
-(global-set-key (kbd "\M-[")        'scroll-up-line) ; scroll down
+(global-set-key (kbd "\M-[")        'scroll-up-line)   ; scroll down
 (global-set-key (kbd "M-x")         'helm-M-x)
 (global-set-key (kbd "C-x C-f")     'helm-find-files)
 (global-set-key (kbd "C-?")         'help-command)
@@ -81,6 +76,7 @@
 (global-set-key (kbd "S-C-<down>")  'shrink-window)
 (global-set-key (kbd "S-C-<up>")    'enlarge-window)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C-S-c c")     'mc/mark-pop)
 (global-set-key (kbd "C-c m")       'multi-line)
 ;;keep cursor at same position when scrolling
 (setq scroll-preserve-screen-position 1)
@@ -122,6 +118,7 @@
 
 ;; <Org mode>
 ;; org-modules
+(require 'org-inlinetask)
 (add-to-list 'org-modules
              'org-habit t)
 ;; agenda
@@ -158,3 +155,10 @@
 ;; </Babel>
 
 ;; </Org mode>
+
+;; <custom_functions>
+(defun align-whitespace (size)
+    "Align columns delimited by whitespace."
+    (interactive "NSize: ") ;; Number
+    (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\s-" 1 size 't))
+;; </customfunctions>
