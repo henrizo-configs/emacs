@@ -127,9 +127,9 @@
                          "~/Dropbox/my_org/agenda/"))
 
 ;; habits
-(setq org-habit-preceding-days 30)
-(setq org-habit-following-days 10)
-
+(setq org-habit-preceding-days 10)
+(setq org-habit-following-days  0)
+(setq org-habit-graph-column   60)
 ;; save the clock history across Emacs session
 (setq org-clock-persist 'history)
 (org-clock-persistence-insinuate)
