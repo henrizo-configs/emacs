@@ -18,6 +18,7 @@
 (require 'perspective)
 (require 'ace-jump-mode)
 (require 'multiple-cursors)
+(require 'atomic-chrome)
 ;; </dependencies>
 
 ;; <config>
@@ -38,6 +39,9 @@
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+;; backup in one place. flat, no tree structure
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
 ;; </config>
 
 ;; <modes_config>
@@ -108,7 +112,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
+    (atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -155,6 +159,10 @@
 ;; </Babel>
 
 ;; </Org mode>
+
+;; <Atomic Chrome>
+(atomic-chrome-start-server)
+;; </Atomic Chrome>
 
 ;; <custom_functions>
 (defun align-whitespace (size)
