@@ -29,19 +29,24 @@
 
 (fset 'yes-or-no-p 'y-or-n-p) ; allows answering y,n instead of yes,no
 
-(setq-default c-basic-offset 4)     ; sets CC indent to 4 spaces
-(setq-default flycheck-idle-change-delay 1)
-(setq-default cursor-type 'bar)     ; sets cursor to bar
-(setq-default tab-width 2)          ; sets tab width to 2
-(setq-default indent-tabs-mode nil) ; turns off indent-tabs-mode
+(setq-default scroll-bar-width  12)    ; sets the width of vertical   scrollbar
+(setq-default scroll-bar-height 12)    ; sets the width of horizontal scrollbar
+(setq-default c-basic-offset 4)        ; sets CC indent to 4 spaces
+
+(setq-default cursor-type 'bar)        ; sets cursor to bar
+(setq-default tab-width 2)             ; sets tab width to 2
+(setq-default indent-tabs-mode nil)    ; turns off indent-tabs-mode
 (setq-default fci-rule-column 100)
 (set-cursor-color "WhiteSmoke")
 
-(put 'upcase-region 'disabled nil)
+(put 'upcase-region   'disabled nil)
 (put 'downcase-region 'disabled nil)
 
 ;; backup in one place. flat, no tree structure
 (setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+
+; flycheck checks the buffer 1s after the last change
+(setq-default flycheck-idle-change-delay 1)
 ;; </config>
 
 ;; <modes_config>
