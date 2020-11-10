@@ -18,31 +18,35 @@
 (require 'perspective)
 (require 'ace-jump-mode)
 (require 'multiple-cursors)
-
 (require 'atomic-chrome)
-
 ;; </dependencies>
 
 ;; <config>
 (load-theme 'doom-one t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(set-frame-font "Inconsolata-12")
+(set-frame-font "DejaVu Sans Mono-12")
 
 (fset 'yes-or-no-p 'y-or-n-p) ; allows answering y,n instead of yes,no
 
-(setq-default c-basic-offset 4)     ; sets CC indent to 4 spaces
-(setq-default flycheck-idle-change-delay 1)
-(setq-default cursor-type 'bar)     ; sets cursor to bar
-(setq-default tab-width 2)          ; sets tab width to 2
-(setq-default indent-tabs-mode nil) ; turns off indent-tabs-mode
+(setq-default scroll-bar-width  12)    ; sets the width of vertical   scrollbar
+(setq-default scroll-bar-height 12)    ; sets the width of horizontal scrollbar
+(setq-default c-basic-offset 4)        ; sets CC indent to 4 spaces
+
+(setq-default cursor-type 'bar)        ; sets cursor to bar
+(setq-default tab-width 2)             ; sets tab width to 2
+(setq-default indent-tabs-mode nil)    ; turns off indent-tabs-mode
 (setq-default fci-rule-column 100)
 (set-cursor-color "WhiteSmoke")
 
-(put 'upcase-region 'disabled nil)
+(put 'upcase-region   'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-(setq make-backup-files nil) ; disables backupfiles
+;; backup in one place. flat, no tree structure
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+
+; flycheck checks the buffer 1s after the last change
+(setq-default flycheck-idle-change-delay 1)
 ;; </config>
 
 ;; <modes_config>
@@ -105,19 +109,6 @@
 
 ;; <Neotree>
 (global-set-key [f8] 'neotree-toggle)
-
-(setq neo-window-fixed-size nil)
-
-;; Set the neo-window-width to the current width of the
-  ;; neotree window, to trick neotree into resetting the
-  ;; width back to the actual window width.
-  ;; Fixes: https://github.com/jaypei/emacs-neotree/issues/262
-  (eval-after-load "neotree"
-    '(add-to-list 'window-size-change-functions
-                  (lambda (frame)
-                    (let ((neo-window (neo-global--get-window)))
-                      (unless (null neo-window)
-                        (setq neo-window-width (window-width neo-window)))))))
 ;; </Neotree>
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -126,7 +117,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (highlight-indent-guides typescript-mode typescript atomic-chrome edit-server multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
+    (yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -174,20 +165,29 @@
 
 ;; </Org mode>
 
+;; <Atomic Chrome>
+(atomic-chrome-start-server)
+;; </Atomic Chrome>
+
 ;; <custom_functions>
 (defun align-whitespace (size)
-    "Align columns delimited by whitespace."
+    "Aligns columns delimited by whitespace."
     (interactive "NSize: ") ;; Number
     (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\s-" 1 size 't))
+
+(defun org-refile-to (headline)
+  "Moves the current subtree to specified headline"
+  (org-refile nil
+              nil
+              (list headline
+                    (buffer-file-name)
+                    nil
+                    (org-find-exact-headline-in-buffer (capitalize headline)))))
+
+(defun org-refile-todo ()
+  "Moves the current subtree to the corresponding todo heading"
+  (interactive)
+  (when (and (eq (org-current-level) 2)
+             (not (member "pin" (org-get-tags))))
+    (org-refile-to (org-get-todo-state))))
 ;; </customfunctions>
-
-;; <atomic_chrome>
-(atomic-chrome-start-server)
-;; </atomic_chrome>
-
-;; <highlight_indent_guides>
-(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-(setq highlight-indent-guides-method 'column)
-(setq highlight-indent-guides-responsive 'top)
-(setq highlight-indent-guides-delay 0)
-;; </highlight_indent_guides>
