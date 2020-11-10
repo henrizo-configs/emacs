@@ -131,8 +131,16 @@
 (add-to-list 'org-modules
              'org-habit t)
 ;; agenda
-(setq org-agenda-files '("~/Dropbox/my_org/todos/"
-                         "~/Dropbox/my_org/habits/"
+(setq org-agenda-files '("~/Dropbox/my_org/ponies/"
+                         "~/Dropbox/my_org/projects/canonical_projects/Art/"
+                         "~/Dropbox/my_org/projects/canonical_projects/Finances/"
+                         "~/Dropbox/my_org/projects/canonical_projects/Habits/"
+                         "~/Dropbox/my_org/projects/canonical_projects/Health/"
+                         "~/Dropbox/my_org/projects/canonical_projects/Music/"
+                         "~/Dropbox/my_org/projects/canonical_projects/Org/"
+                         "~/Dropbox/my_org/projects/canonical_projects/Professional/"
+                         "~/Dropbox/my_org/projects/canonical_projects/Social Life/"
+                         "~/Dropbox/my_org/projects/canonical_projects/Sports/"
                          "~/Dropbox/my_org/agenda/"))
 
 ;; habits
