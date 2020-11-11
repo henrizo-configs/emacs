@@ -47,6 +47,9 @@
 
 ; flycheck checks the buffer 1s after the last change
 (setq-default flycheck-idle-change-delay 1)
+
+; ignores org-mode warning on risky variables
+(advice-add 'risky-local-variable-p :override #'ignore)
 ;; </config>
 
 ;; <modes_config>
@@ -116,8 +119,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))))
+   '(yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
+ '(safe-local-variable-values '((org-after-todo-state-change-hook . org-refile-todo))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -131,17 +134,7 @@
 (add-to-list 'org-modules
              'org-habit t)
 ;; agenda
-(setq org-agenda-files '("~/Dropbox/my_org/ponies/"
-                         "~/Dropbox/my_org/projects/canonical_projects/Art/"
-                         "~/Dropbox/my_org/projects/canonical_projects/Finances/"
-                         "~/Dropbox/my_org/projects/canonical_projects/Habits/"
-                         "~/Dropbox/my_org/projects/canonical_projects/Health/"
-                         "~/Dropbox/my_org/projects/canonical_projects/Music/"
-                         "~/Dropbox/my_org/projects/canonical_projects/Org/"
-                         "~/Dropbox/my_org/projects/canonical_projects/Professional/"
-                         "~/Dropbox/my_org/projects/canonical_projects/Social Life/"
-                         "~/Dropbox/my_org/projects/canonical_projects/Sports/"
-                         "~/Dropbox/my_org/agenda/"))
+(setq org-agenda-files (directory-files-recursively "~/Dropbox/my_org/" "\\.org$"))
 
 ;; habits
 (setq org-habit-preceding-days 30)
