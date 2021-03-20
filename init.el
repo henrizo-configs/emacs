@@ -3,8 +3,8 @@
 ;; <package_refs>
 (add-to-list 'load-path "~/.emacs.d/elpa")
 
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("melpa"     . "http://melpa.milkbox.net/packages/"))
+;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa"     . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org"       . "http://orgmode.org/elpa/")) ; Org-mode's repository
 ;; </package_refs>
 
@@ -118,8 +118,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("~/Dropbox/my_org/agenda/my_agenda.org" "~/Dropbox/my_org/ponies/ponies.org" "~/Dropbox/my_org/projects/JackSparrow/jacksparrow_backlog.org" "~/Dropbox/my_org/projects/JackSparrow/musics_to_download.org" "~/Dropbox/my_org/projects/canonical_projects/Art/art_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Finances/finances_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Habits/habits_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Habits/my_habits.org" "~/Dropbox/my_org/projects/canonical_projects/Health/health_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Music/music_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Org/org_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Professional/professional_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Sports/sports_backlog.org" "~/Dropbox/my_org/my_org_rules.org"))
  '(package-selected-packages
-   '(yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
+   '(org-gcal json-navigator haskell-mode rust-mode yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
  '(safe-local-variable-values '((org-after-todo-state-change-hook . org-refile-todo))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -192,3 +194,22 @@
              (not (member "pin" (org-get-tags))))
     (org-refile-to (org-get-todo-state))))
 ;; </customfunctions>
+
+;; <g-cal sync config (org-mode and g-calendar integration)>
+(setq package-check-signature nil)
+
+(require 'org-gcal)
+(setq org-gcal-client-id "client-id"
+      org-gcal-client-secret "client-secret"
+      org-gcal-file-alist '(("matheus.hs97@gmail.com" .  "~/Dropbox/my_org/agenda/my_agenda.org")))
+
+(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+(add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+
+(global-set-key (kbd "C-c c")  'org-capture)
+(setq org-capture-templates
+      '(("a" "Appointment" entry (file  "~/Dropbox/my_org/agenda/my_agenda.org" )
+         "* %?")
+        ))
+
+;; </g-cal sync config (org-mode and g-calendar integration)>
