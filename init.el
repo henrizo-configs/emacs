@@ -8,6 +8,25 @@
 (add-to-list 'package-archives '("org"       . "http://orgmode.org/elpa/")) ; Org-mode's repository
 ;; </package_refs>
 
+;; <custom set vars>
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("~/Dropbox/my_org/agenda/my_agenda.org" "~/Dropbox/my_org/ponies/ponies.org" "~/Dropbox/my_org/projects/JackSparrow/jacksparrow_backlog.org" "~/Dropbox/my_org/projects/JackSparrow/musics_to_download.org" "~/Dropbox/my_org/projects/canonical_projects/Art/art_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Finances/finances_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Habits/habits_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Habits/my_habits.org" "~/Dropbox/my_org/projects/canonical_projects/Health/health_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Music/music_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Org/org_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Professional/professional_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Sports/sports_backlog.org" "~/Dropbox/my_org/my_org_rules.org"))
+ '(package-selected-packages
+   '(org-gcal json-navigator haskell-mode rust-mode yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
+ '(safe-local-variable-values '((org-after-todo-state-change-hook . org-refile-todo))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+;; </custom set vars>
+
 ;; <dependenciess>
 (require 'org)
 (require 'org-habit)
@@ -113,22 +132,6 @@
 ;; <Neotree>
 (global-set-key [f8] 'neotree-toggle)
 ;; </Neotree>
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   '("~/Dropbox/my_org/agenda/my_agenda.org" "~/Dropbox/my_org/ponies/ponies.org" "~/Dropbox/my_org/projects/JackSparrow/jacksparrow_backlog.org" "~/Dropbox/my_org/projects/JackSparrow/musics_to_download.org" "~/Dropbox/my_org/projects/canonical_projects/Art/art_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Finances/finances_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Habits/habits_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Habits/my_habits.org" "~/Dropbox/my_org/projects/canonical_projects/Health/health_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Music/music_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Org/org_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Professional/professional_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Sports/sports_backlog.org" "~/Dropbox/my_org/my_org_rules.org"))
- '(package-selected-packages
-   '(org-gcal json-navigator haskell-mode rust-mode yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
- '(safe-local-variable-values '((org-after-todo-state-change-hook . org-refile-todo))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 ;; <Org mode>
 ;; org-modules
