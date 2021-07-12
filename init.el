@@ -8,16 +8,13 @@
 (add-to-list 'package-archives '("org"       . "http://orgmode.org/elpa/")) ; Org-mode's repository
 ;; </package_refs>
 
-;; <custom set vars>
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   '("~/Dropbox/my_org/agenda/my_agenda.org" "~/Dropbox/my_org/ponies/ponies.org" "~/Dropbox/my_org/projects/JackSparrow/jacksparrow_backlog.org" "~/Dropbox/my_org/projects/JackSparrow/musics_to_download.org" "~/Dropbox/my_org/projects/canonical_projects/Art/art_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Finances/finances_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Habits/habits_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Habits/my_habits.org" "~/Dropbox/my_org/projects/canonical_projects/Health/health_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Music/music_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Org/org_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Professional/professional_backlog.org" "~/Dropbox/my_org/projects/canonical_projects/Sports/sports_backlog.org" "~/Dropbox/my_org/my_org_rules.org"))
  '(package-selected-packages
-   '(org-gcal json-navigator haskell-mode rust-mode yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
+   '(emmet-mode prettier-js add-node-modules-path web-mode org-gcal json-navigator haskell-mode rust-mode yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
  '(safe-local-variable-values '((org-after-todo-state-change-hook . org-refile-todo))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -25,11 +22,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-;; </custom set vars>
 
 ;; <dependenciess>
 (require 'org)
-(require 'org-habit)
 (require 'package)
 (require 'neotree)
 (require 'auto-complete)
@@ -38,13 +33,13 @@
 (require 'ace-jump-mode)
 (require 'multiple-cursors)
 (require 'atomic-chrome)
+(require 'flycheck)
 ;; </dependencies>
 
 ;; <config>
 (load-theme 'doom-one t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(set-frame-font "DejaVu Sans Mono-12")
 
 (fset 'yes-or-no-p 'y-or-n-p) ; allows answering y,n instead of yes,no
 
@@ -122,13 +117,6 @@
 (add-hook 'haskell-mode-hook 'inf-haskell-mode)
 ;; </Haskell>
 
-;; <OmniSharp>
-;; I'm not using it because I am currently not programming in C#, but I'll leave it
-;; here as a reminder of this package
-;; (add-hook 'csharp-mode-hook 'omnisharp-mode)
-;; (setq omnisharp-server-executable-path "/opt/omnisharp-server/OmniSharp/bin/Release/OmniSharp.exe" )
-;; </OmniSharp>
-
 ;; <Neotree>
 (global-set-key [f8] 'neotree-toggle)
 ;; </Neotree>
@@ -136,15 +124,7 @@
 ;; <Org mode>
 ;; org-modules
 (require 'org-inlinetask)
-(add-to-list 'org-modules
-             'org-habit t)
-;; agenda
-(setq org-agenda-files (directory-files-recursively "~/Dropbox/my_org/" "\\.org$"))
-
-;; habits
-(setq org-habit-preceding-days 30)
-(setq org-habit-following-days  0)
-(setq org-habit-graph-column   60)
+(add-to-list 'org-modules t)
 ;; save the clock history across Emacs session
 (setq org-clock-persist 'history)
 (org-clock-persistence-insinuate)
@@ -162,18 +142,28 @@
  '((R . t)
    (haskell    . t)
    (python     . t)
-   (ipython    . t)
    (C          . t)
    (sql        . t)
    (shell      . t)
    (emacs-lisp . nil)))
 ;; </Babel>
-
 ;; </Org mode>
 
-;; <Atomic Chrome>
-(atomic-chrome-start-server)
-;; </Atomic Chrome>
+;; <web-mode>
+(add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode)) ;; auto-enable for .js/.jsx files
+(setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+(setq-default flycheck-disabled-checkers
+              (append flycheck-disabled-checkers
+                      '(javascript-jshint json-jsonlist)))
+(flycheck-add-mode 'javascript-eslint 'web-mode) ;; Enable eslint checker for web-mode
+(add-hook 'after-init-hook #'global-flycheck-mode) ;; Enable flycheck globally
+(add-hook 'flycheck-mode-hook 'add-node-modules-path)
+(defun web-mode-init-prettier-hook ()
+  (add-node-modules-path)
+  (prettier-js-mode))
+(add-hook 'web-mode-hook  'web-mode-init-prettier-hook)
+(add-hook 'web-mode-hook  'emmet-mode)
+;; </web-mode>
 
 ;; <custom_functions>
 (defun align-whitespace (size)
@@ -197,22 +187,3 @@
              (not (member "pin" (org-get-tags))))
     (org-refile-to (org-get-todo-state))))
 ;; </customfunctions>
-
-;; <g-cal sync config (org-mode and g-calendar integration)>
-(setq package-check-signature nil)
-
-(require 'org-gcal)
-(setq org-gcal-client-id "client-id"
-      org-gcal-client-secret "client-secret"
-      org-gcal-file-alist '(("matheus.hs97@gmail.com" .  "~/Dropbox/my_org/agenda/my_agenda.org")))
-
-(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
-(add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
-
-(global-set-key (kbd "C-c c")  'org-capture)
-(setq org-capture-templates
-      '(("a" "Appointment" entry (file  "~/Dropbox/my_org/agenda/my_agenda.org" )
-         "* %?")
-        ))
-
-;; </g-cal sync config (org-mode and g-calendar integration)>
