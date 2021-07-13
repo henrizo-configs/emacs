@@ -14,7 +14,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(emmet-mode prettier-js add-node-modules-path web-mode org-gcal json-navigator haskell-mode rust-mode yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
+   '(exec-path-from-shell emmet-mode prettier-js add-node-modules-path web-mode org-gcal json-navigator haskell-mode rust-mode yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
  '(safe-local-variable-values '((org-after-todo-state-change-hook . org-refile-todo))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -187,3 +187,7 @@
              (not (member "pin" (org-get-tags))))
     (org-refile-to (org-get-todo-state))))
 ;; </customfunctions>
+
+;; <exec-path-from-shell>
+(exec-path-from-shell-initialize)
+;; </exec-path-from-shell>
