@@ -14,7 +14,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(exec-path-from-shell emmet-mode prettier-js add-node-modules-path web-mode org-gcal json-navigator haskell-mode rust-mode yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
+   '(multi-term exec-path-from-shell emmet-mode prettier-js add-node-modules-path web-mode org-gcal json-navigator haskell-mode rust-mode yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes multi-term multiple-cursors powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
  '(safe-local-variable-values '((org-after-todo-state-change-hook . org-refile-todo))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -37,7 +37,7 @@
 ;; </dependencies>
 
 ;; <config>
-(load-theme 'doom-one t)
+(load-theme 'adwaita t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
@@ -51,13 +51,20 @@
 (setq-default tab-width 2)             ; sets tab width to 2
 (setq-default indent-tabs-mode nil)    ; turns off indent-tabs-mode
 (setq-default fci-rule-column 100)
-(set-cursor-color "WhiteSmoke")
+(setq-default delete-selection-mode 1) ; replace what I select when I type or so
+(set-cursor-color "Black")
 
 (put 'upcase-region   'disabled nil)
 (put 'downcase-region 'disabled nil)
 
 ;; backup in one place. flat, no tree structure
 (setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+
+;; stop creating #autosave# files
+(setq auto-save-default nil)
+
+;; stop creating .#lockfiles
+(setq create-lockfiles nil)
 
 ; flycheck checks the buffer 1s after the last change
 (setq-default flycheck-idle-change-delay 1)
@@ -199,30 +206,45 @@
 (exec-path-from-shell-initialize)
 ;; </exec-path-from-shell>
 
-;; <move-line>
-(defun move-line (n)
-  "Move the current line up or down by N lines."
-  (interactive "p")
-  (setq col (current-column))
-  (beginning-of-line) (setq start (point))
-  (end-of-line) (forward-char) (setq end (point))
-  (let ((line-text (delete-and-extract-region start end)))
-    (forward-line n)
-    (insert line-text)
-    ;; restore point to original column in moved line
-    (forward-line -1)
-    (forward-char col)))
+;; <move-text>
+(defun move-text-internal (arg)
+  (cond
+   ((and mark-active transient-mark-mode)
+    (if (> (point) (mark))
+        (exchange-point-and-mark))
+    (let ((column (current-column))
+          (text (delete-and-extract-region (point) (mark))))
+      (forward-line arg)
+      (move-to-column column t)
+      (set-mark (point))
+      (insert text)
+      (exchange-point-and-mark)
+      (setq deactivate-mark nil)))
+   (t
+    (let ((column (current-column)))
+      (beginning-of-line)
+      (when (or (> arg 0) (not (bobp)))
+        (forward-line)
+        (when (or (< arg 0) (not (eobp)))
+          (transpose-lines arg))
+        (forward-line -1))
+      (move-to-column column t)))))
 
-(defun move-line-up (n)
-  "Move the current line up by N lines."
-  (interactive "p")
-  (move-line (if (null n) -1 (- n))))
+(defun move-text-down (arg)
+  "Move region (transient-mark-mode active) or current line
+  arg lines down."
+  (interactive "*p")
+  (move-text-internal arg))
 
-(defun move-line-down (n)
-  "Move the current line down by N lines."
-  (interactive "p")
-  (move-line (if (null n) 1 n)))
+(defun move-text-up (arg)
+  "Move region (transient-mark-mode active) or current line
+  arg lines up."
+  (interactive "*p")
+  (move-text-internal (- arg)))
 
-(global-set-key (kbd "M-<up>") 'move-line-up)
-(global-set-key (kbd "M-<down>") 'move-line-down)
-;; </move-lne>
+(provide 'move-text)
+
+
+(global-set-key [M-up] 'move-text-up)
+(global-set-key [M-down] 'move-text-down)
+;;</move-text>
