@@ -248,3 +248,10 @@
 (global-set-key [M-up] 'move-text-up)
 (global-set-key [M-down] 'move-text-down)
 ;;</move-text>
+
+;; <custom-safe-query-replace>
+(defun my-query-replace-regexp ()
+  (interactive)
+  (let ((after-change-functions nil)) ; empty when executing this func
+    (call-interactively 'query-replace-regexp)))
+;; </custom-safe-query-replace>
