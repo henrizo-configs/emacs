@@ -14,7 +14,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(multi-term exec-path-from-shell emmet-mode prettier-js add-node-modules-path web-mode org-gcal json-navigator haskell-mode rust-mode yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes multi-term multiple-cursors powerline perspective neotree helm flycheck company auto-highlight-symbol auto-complete ace-jump-mode))
+   '(multi-term exec-path-from-shell emmet-mode prettier-js add-node-modules-path web-mode org-gcal json-navigator haskell-mode rust-mode yafolding flyspell-correct atomic-chrome multi-line ein ledger-mode htmlize lua-mode latex-preview-pane skewer-mode omnisharp doom-themes multi-term multiple-cursors powerline perspective neotree helm flycheck company auto-complete ace-jump-mode))
  '(safe-local-variable-values '((org-after-todo-state-change-hook . org-refile-todo))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -28,7 +28,6 @@
 (require 'package)
 (require 'neotree)
 (require 'auto-complete)
-(require 'auto-highlight-symbol)
 (require 'perspective)
 (require 'ace-jump-mode)
 (require 'multiple-cursors)
@@ -78,7 +77,6 @@
 
 (global-company-mode)
 (global-linum-mode)
-(global-auto-highlight-symbol-mode)
 (global-flycheck-mode)
 
 (helm-mode)
@@ -248,10 +246,3 @@
 (global-set-key [M-up] 'move-text-up)
 (global-set-key [M-down] 'move-text-down)
 ;;</move-text>
-
-;; <custom-safe-query-replace>
-(defun my-query-replace-regexp ()
-  (interactive)
-  (let ((after-change-functions nil)) ; empty when executing this func
-    (call-interactively 'query-replace-regexp)))
-;; </custom-safe-query-replace>
